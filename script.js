@@ -1,7 +1,7 @@
 // Declare global variables
 let numRows = 0;
 let numCols = 0;
-let colorSelected = 'white';
+let colorSelected;
 let grid = document.getElementById("grid");
 let selected_cell = null;
 
@@ -10,23 +10,19 @@ function addR() {
     if(numRows == 0 && numCols == 0) numCols += 1;
     numRows += 1; 
     let new_row = document.createElement("tr");
-    let cell = document.createElement("td");
-    cell.addEventListener('click', () => { cell.style.backgroundColor = colorSelected });
+  
     for(let i = 0; i < numCols; i++){
+        let cell = document.createElement("td");
+        cell.addEventListener('click', () => { 
+            selectColor();
+            cell.style.backgroundColor = colorSelected; 
+        });
         new_row.appendChild(cell);
     }
     grid.appendChild(new_row);
 }   
 
 
-function updateColor(){
-    let current_selection = document.getElementById('selectedColorId');
-    if(current_selection !="SELECT"){
-        colorSelected = current_selection;
-    }else{
-        colorSelected = 'white';
-    }
-}
 
 // Add a column
 function addC() {
@@ -36,7 +32,10 @@ function addC() {
     numCols += 1; 
     for(let i = 0; i < numRows; i++){
         let cell = document.createElement("td");
-        cell.addEventListener('click', () => { cell.style.backgroundColor = colorSelected });
+        cell.addEventListener('click', () => { 
+            selectColor(); 
+            cell.style.backgroundColor = colorSelected; 
+        });
         grid.children[i].appendChild(cell);
     }
 }
@@ -72,15 +71,29 @@ function selectColor(){
 
 // Fill all uncolored cells
 function fillU(){
-    alert("Clicked Fill All Uncolored"); // Replace this line with your code.
+    let cells = document.getElementsByTagName("td")
+    selectColor();
+    for(let cell of cells){
+        if(cell.style.backgroundColor ='white'){
+            cell.style.backgroundColor = colorSelected;
+        }
+    }
 }
 
 // Fill all cells
 function fillAll(){
-    alert("Clicked Fill All"); // Replace this line with your code.
+    let cells = document.getElementsByTagName("td")
+    selectColor();
+    for(let cell of cells){
+        cell.style.backgroundColor = colorSelected;
+    }
 }
 
 // Clear all cells
 function clearAll(){
-    alert("Clicked Clear All"); // Replace this line with your code.
+    let cells = document.getElementsByTagName("td")
+    selectColor();
+    for(let cell of cells){
+        cell.style.backgroundColor = 'white';
+    }
 }
