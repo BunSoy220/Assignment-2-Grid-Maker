@@ -1,18 +1,31 @@
 // Declare global variables
 let numRows = 0;
 let numCols = 0;
-let colorSelected; 
+let colorSelected = 'white';
 let grid = document.getElementById("grid");
+let selected_cell = null;
 
 // Add a row
 function addR() {
     if(numRows == 0 && numCols == 0) numCols += 1;
     numRows += 1; 
     let new_row = document.createElement("tr");
+    let cell = document.createElement("td");
+    cell.addEventListener('click', () => { cell.style.backgroundColor = colorSelected });
     for(let i = 0; i < numCols; i++){
-        new_row.appendChild(document.createElement("td"));
+        new_row.appendChild(cell);
     }
     grid.appendChild(new_row);
+}   
+
+
+function updateColor(){
+    let current_selection = document.getElementById('selectedColorId');
+    if(current_selection !="SELECT"){
+        colorSelected = current_selection;
+    }else{
+        colorSelected = 'white';
+    }
 }
 
 // Add a column
@@ -22,7 +35,9 @@ function addC() {
     }
     numCols += 1; 
     for(let i = 0; i < numRows; i++){
-        grid.children[i].appendChild(document.createElement("td"));
+        let cell = document.createElement("td");
+        cell.addEventListener('click', () => { cell.style.backgroundColor = colorSelected });
+        grid.children[i].appendChild(cell);
     }
 }
 
