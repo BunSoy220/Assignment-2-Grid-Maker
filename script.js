@@ -13,6 +13,7 @@ function addR() {
   
     for(let i = 0; i < numCols; i++){
         let cell = document.createElement("td");
+        cell.style.backgroundColor = 'white';
         cell.addEventListener('click', () => { 
             selectColor();
             cell.style.backgroundColor = colorSelected; 
@@ -26,12 +27,13 @@ function addR() {
 
 // Add a column
 function addC() {
-    if(numCols == 0 || numRows == 0){
+    if(numCols == 0 && numRows == 0){
         addR();
     }
     numCols += 1; 
     for(let i = 0; i < numRows; i++){
         let cell = document.createElement("td");
+        cell.style.backgroundColor = 'white';
         cell.addEventListener('click', () => { 
             selectColor(); 
             cell.style.backgroundColor = colorSelected; 
@@ -74,7 +76,7 @@ function fillU(){
     let cells = document.getElementsByTagName("td")
     selectColor();
     for(let cell of cells){
-        if(cell.style.backgroundColor ='white'){
+        if(cell.style.backgroundColor =='white'){
             cell.style.backgroundColor = colorSelected;
         }
     }
